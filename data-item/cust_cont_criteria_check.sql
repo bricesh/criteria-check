@@ -12,8 +12,6 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    	-- Insert statements for procedure here
-
 	select
 		a.ACTION as a,
 		oa.CYCLE as cy,
