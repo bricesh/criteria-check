@@ -106,7 +106,6 @@
 			// Retrieve the data from the URL (string after the hash)
 			let myBR = ParseXML(atob(window.location.hash.substr(1)).substring(2,atob(window.location.hash.substr(1)).length).replace(/[\x00-\x1F\x7F-\x9F]/g, ""));
 			//console.log(atob(window.location.hash.substr(1)).substring(2,atob(window.location.hash.substr(1)).length).replace(/[\x00-\x1F\x7F-\x9F]/g, ""))
-			//console.log(myBR.documentElement.childNodes)
 			let BRnodes = myBR.documentElement.childNodes;
 			//console.log(BRnodes)
 			
