@@ -4,13 +4,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
--- =============================================
--- Author:		Brice Hoareau
--- Create date: 20190809
--- Description:	
--- =============================================
 CREATE PROCEDURE [dbo].[cust_cont_criteria_check] 
-	-- Add the parameters for the stored procedure here
 	@psEntryPoint	varchar(254)
 AS
 BEGIN
@@ -18,7 +12,7 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    -- Insert statements for procedure here
+    	-- Insert statements for procedure here
 
 	select
 		a.ACTION as a,
