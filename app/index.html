@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<style>
+	table {
+	border-collapse: collapse;
+	}
+	table, th, td {
+	border: 1px solid black;
+	padding: 10px;
+	}
+	body {background-color: white;}
+	.red_row {background-color: red;
+				color: white;}
+	.thead-light {background-color: #66ccff;}
+	</style>
+
+	<script type="text/javascript" language="javascript">
+		function ParseXML(val)
+		{
+			if (window.DOMParser)
+			  {
+				parser = new DOMParser();
+				xmlDoc = parser.parseFromString(val,"text/xml");
+			  }
+			else // Internet Explorer
+			  {
+				xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+				xmlDoc.loadXML(val);
+			  }
+			return xmlDoc;
+		}
+		
+		function generate_table(BRnodes) {
+			// get the reference for the body
+			var body = document.getElementsByTagName("body")[0];
+
+			
+			// creates a <table> element and a <tbody> element
+			var tbl = document.createElement("table");
+			tbl.className = "table"
+			var tblHead = document.createElement("thead");
+			tblHead.className = "thead-light";
+
+			var hrow = document.createElement("tr");
+
+			var hcell = document.createElement("th");
+			hcell.appendChild(document.createTextNode("Action"));
+			hrow.appendChild(hcell);
+			var hcell = document.createElement("th");
+			hcell.appendChild(document.createTextNode("Cycle"));
+			hrow.appendChild(hcell);
+			var hcell = document.createElement("th");
+			hcell.appendChild(document.createTextNode("Current Criteria"));
+			hrow.appendChild(hcell);
+			var hcell = document.createElement("th");
+			hcell.appendChild(document.createTextNode("Calculated Criteria"));
+			hrow.appendChild(hcell);
+			var hcell = document.createElement("th");
+			hcell.appendChild(document.createTextNode("Action Open?"));
+			hrow.appendChild(hcell);
+
+			tblHead.appendChild(hrow);
+
+			tbl.appendChild(tblHead);
+			
+			var tblBody = document.createElement("tbody");
+			
+
+			// creating all cells
+			for (var i = 0; i <  BRnodes.length; i++) {
+				// creates a table row
+				var row = document.createElement("tr");
+
+				for (var j = 0; j < 5; j++) {
+					// Create a <td> element and a text node, make the text
+					// node the contents of the <td>, and put the <td> at
+					// the end of the table row
+					
+					var cell = document.createElement("td");
+					var cellText = document.createTextNode(BRnodes[i].childNodes[j].textContent);
+					cell.appendChild(cellText);
+					row.appendChild(cell);
+				}
+				console.log(BRnodes[i].childNodes[2].textContent);
+				console.log(BRnodes[i].childNodes[3].textContent);
+				
+				if (BRnodes[i].childNodes[2].textContent != BRnodes[i].childNodes[3].textContent)
+				{
+					row.className = "red_row";
+				}
+				
+
+				// add the row to the end of the table body
+				tblBody.appendChild(row);
+			}
+
+			// put the <tbody> in the <table>
+			tbl.appendChild(tblBody);
+			// appends <table> into <body>
+			body.appendChild(tbl);
+			// sets the border attribute of tbl to 2;
+			tbl.setAttribute("border", "2");
+		}
+
+		function loadTimeline() {
+
+			// Retrieve the data from the URL (string after the hash)
+			let myBR = ParseXML(atob(window.location.hash.substr(1)).substring(2,atob(window.location.hash.substr(1)).length).replace(/[\x00-\x1F\x7F-\x9F]/g, ""));
+			//console.log(atob(window.location.hash.substr(1)).substring(2,atob(window.location.hash.substr(1)).length).replace(/[\x00-\x1F\x7F-\x9F]/g, ""))
+			//console.log(myBR)
+			let BRnodes = myBR.documentElement.childNodes;
+			//console.log(BRnodes)
+			
+			generate_table(BRnodes)
+			
+			//for (i = 0; i < BRnodes.length; i++) {
+			//	console.log(BRnodes[i].childNodes[2].textContent)
+			//}
+		}
+	</script>
+	</head>
+	
+	<body onload="loadTimeline()">
+	</body>
+</html>
