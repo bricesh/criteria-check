@@ -36,8 +36,6 @@ BEGIN
 	order by a.ACTIONNAME
 
 	select 'http://localhost/criteria_check/index.html#' + 
-	--cast((select replace(replace(stuff((select ', ' + evt + ', ' + cast(dt as nvarchar(10)) from #temp_tl  as ce for xml path('')), 1, 2, ''), ' ', '_'), ',', '__'))  as nvarchar(max))
-	--cast((select * from #temp_tl  as ce FOR XML AUTO, ELEMENTS, TYPE, ROOT('tl')) as nvarchar(max)) + '"'
 	(SELECT CAST((select * from #temp_tl  as ce FOR XML AUTO, ELEMENTS, TYPE, ROOT('cr')) as varbinary(max)) FOR XML PATH(''), BINARY BASE64)
 	END
 GO
