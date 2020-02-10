@@ -82,8 +82,6 @@
 					cell.appendChild(cellText);
 					row.appendChild(cell);
 				}
-				console.log(BRnodes[i].childNodes[2].textContent);
-				console.log(BRnodes[i].childNodes[3].textContent);
 				
 				if (BRnodes[i].childNodes[2].textContent != BRnodes[i].childNodes[3].textContent)
 				{
@@ -108,15 +106,11 @@
 			// Retrieve the data from the URL (string after the hash)
 			let myBR = ParseXML(atob(window.location.hash.substr(1)).substring(2,atob(window.location.hash.substr(1)).length).replace(/[\x00-\x1F\x7F-\x9F]/g, ""));
 			//console.log(atob(window.location.hash.substr(1)).substring(2,atob(window.location.hash.substr(1)).length).replace(/[\x00-\x1F\x7F-\x9F]/g, ""))
-			//console.log(myBR)
+			console.log(myBR)
 			let BRnodes = myBR.documentElement.childNodes;
 			//console.log(BRnodes)
 			
 			generate_table(BRnodes)
-			
-			//for (i = 0; i < BRnodes.length; i++) {
-			//	console.log(BRnodes[i].childNodes[2].textContent)
-			//}
 		}
 	</script>
 	</head>
